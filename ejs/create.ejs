@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <style>
+       .navbar{
+        padding-left: 30px ;
+     }
+      .form-control{
+        margin: 0 0 10px 0;
+      }
+      .h2 {
+        text-align: center;
+        margin: 30px;
+        padding-bottom: 10px;
+        font-weight: 500;
+        color: rgb(29, 29, 73);
+      }   
+    </style>
+    <!-- CSS only -->
+</head>
+<script src="/create.js" defer></script>
+<body>
+    <%- include("./partials/nav.ejs"); %>
+    <div class="container">
+        <div class="app">
+            <form action="/create" method="post" enctype="multipart/form-data">
+              <p class="h2">Add new picture</p>
+                <div class="mb-3">
+                  <input  type="text" class="form-control" name ="title" placeholder="title">
+                  <input  type="text" class="form-control" name ="artist" placeholder="artist">
+                  <input  type="number" class="form-control" name ="year" placeholder="year">
+                  <input  type="file" class="form-control" name ="image" placeholder="your image">
+                  <button type="submit" class="btn btn-primary">Add picture</button>
+              </form>
+        </div>
+    </div>
+</body>
+</html>

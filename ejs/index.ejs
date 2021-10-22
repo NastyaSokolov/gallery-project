@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+<style>
+    body{
+        background-color: #fff;
+        }
+    .navbar{
+        padding-left: 30px ;
+        }
+     .container{
+         min-height: 100%;
+         margin: 0 auto;
+        }  
+     .h2, .h4{
+        text-align: center;
+        margin: 30px;
+        font-weight: 500;
+        color: #000;
+        }
+    .list-group{
+        width: 90%;
+        margin: 0 auto;
+        display: grid;
+        gap: 30px;
+        grid-template-columns: repeat(auto-fit,256px );
+        }
+    .wrapper{
+        display: flex;
+        flex-direction: column;
+        align-items:flex-start;
+        justify-content: space-between;
+    }
+    .art_img{
+        display: none;
+        margin: 0 auto; 
+        padding-bottom: 10px;
+    }
+    .btn-primary{
+        margin: 10px 0px 10px 0;
+        align-self: flex-start;
+    }
+    .description{
+        color: #000;
+    }
+    .description__text{
+        line-height:1.2em;
+        font-size: 14px;
+        color: rgb(119, 113, 113)
+    }
+    .popup {
+        display: none;
+        position: fixed;
+        background-color:#000;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 60%;
+    /* height: 90vh; */
+        height: 80%;
+     }
+    .popup img {
+        position: absolute;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    .close {
+        color: #fff;
+        font-size: 30px;
+        float: right;
+        padding-right: 10px;
+        cursor: pointer;
+    }   
+    .btn-wrapper{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    .no_pic{
+        width: 100%;
+        text-align: center;
+    }
+</style>
+</head>        
+<script src="/app.js" defer></script>
+<body>
+    <!-- item.image_l -->
+    <%- include("./partials/nav.ejs"); %>
+    <div class="container">
+        <p class="h2">Evergreen Brush</p>
+     <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div> 
+        <div class="list-group" >
+            <% if (pictureArray.length){
+                pictureArray.forEach((item, id) => {
+                 %>                   
+                      <div class="list-group__item">
+                        <form action="/download" method="post">
+                    <div class="wrapper">
+                        <div class="img-container">
+                     <img class="art_img" src="<%= item.image_l %>" data-src ="<%= item.image_m %>"alt="pic">
+                        </div>
+                        <div class="description">
+                                <div><strong><%= item.title %></strong></div>
+                                <div class="description__text"><%= item.artist %></div>
+                                <div class="description__text"><%= item.year %></div>   
+                        </div>
+                        <div class="btn-wrapper">
+                            <button class="btn btn-primary"type="submit">Download picture</button>
+                            <button type="button" class="btn btn-link btn-edit" value="<%= item._id %>">Delete</button>
+                        </div>
+                    </div>
+                        <input class ="hid" type="hidden"  value="<%= item._id %>" name="id"/>
+                        </form>          
+                </div>
+                 <div class="popup">
+                 <div class="close">&times;</div>
+                 <div class="popup__desc"></div>
+                 <img src="" alt="img">
+                </div>      
+                <% 
+            })
+        } else {
+                   %>
+                   <p class="h4 no_pic">
+                     "No pictures yet" </p>
+                   <% 
+        } %>  
+    </div>
+</body>
+</html>
